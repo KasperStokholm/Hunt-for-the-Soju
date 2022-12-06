@@ -22,7 +22,6 @@ food_y = round((random.randint(0, SCREEN_SIZE[1] - 1))/10)*10
 # Set the initial direction of the snake
 direction = 'RIGHT'
 
-
 # Set the initial score
 score = 0
 
@@ -119,7 +118,7 @@ while True:
         food_x = round((random.randint(0, SCREEN_SIZE[0] - 1))/10)*10
         food_y = round((random.randint(0, SCREEN_SIZE[1] - 1))/10)*10
 
-        # Increase the length of the snake
+        # Increase the length of the snake - NOT WORKING FOR SOME REASON
         length = length + 1
 
         # Increase the score
@@ -134,6 +133,7 @@ while True:
     x += x_change
     y += y_change
 
+    #Drawing the snake parts - NOT CURRENTLY WORKING
     snake_Head = [x, y]
     snake_List.append(snake_Head)
     if len(snake_List) > length:
