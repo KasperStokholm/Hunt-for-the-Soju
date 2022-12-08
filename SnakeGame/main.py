@@ -8,47 +8,50 @@ pygame.init()
 SCREEN_SIZE = (500, 500)
 screen = pygame.display.set_mode(SCREEN_SIZE)
 
+image_jan = pygame.image.load(r'C:\Users\Kasper\Pictures\Jan.jpg').convert()
+image_soju = pygame.image.load(r'C:\Users\Kasper\Pictures\Soju.png').convert()
+image_cu = pygame.image.load(r'C:\Users\Kasper\Pictures\CU.png').convert()
+
+
 # Set the title of the window
 pygame.display.set_caption('Snake')
 
-# Set the initial position of the snake
+# Set the initial position and size of the snake
 x = 250
 y = 250
+snake_block = 40
 
-# Set the initial position of the food
-food_x = round((random.randint(0, SCREEN_SIZE[0] - 1))/10)*10
-food_y = round((random.randint(0, SCREEN_SIZE[1] - 1))/10)*10
+food_x = round((random.randint(0, SCREEN_SIZE[0]))/10)*10
+food_y = round((random.randint(0, SCREEN_SIZE[1]))/10)*10
+#print(f"Food position: {food_x} : {food_y}")
+#print(f"Snake position: {x} : {y}")
 
-# Set the initial direction of the snake
 direction = 'RIGHT'
 
-# Set the initial score
 score = 0
 
-# Set the initial speed of the game
-speed = 10
-
-# Set the initial color of the snake
+speed = 15
 color = (255, 0, 0)
 
 # Set the initial font of the text
 font = pygame.font.SysFont('comicsansms', 24)
 
-snake_block = 10
 
 def our_snake(snake_block, snake_list):
     for x in snake_list:
         pygame.draw.rect(screen, color, [x[0], x[1], snake_block, snake_block])
 
+        screen.blit(image_jan, (x[0], x[1]))
+
 # Function to display the score
 def show_score(x, y, score):
-    score_text = font.render(f'Score: {score}', True, (255, 255, 255))
+    score_text = font.render(f'Score: {score}', True, (255, 0, 0))
     screen.blit(score_text, (x, y))
 
 
 # Function to check if the snake has collided with the food
 def check_food_collision(x, y, food_x, food_y):
-    if x == food_x and y == food_y:
+    if food_x-10 <= x <= food_x+10 and food_y-10 <= y <= food_y+10:
         return True
     return False
 
@@ -63,7 +66,8 @@ def check_collision(x, y, length):
 # Game loop
 while True:
     # Fill the screen with black color
-    screen.fill((0, 0, 0))
+
+    screen.blit(image_cu, (0, 0))
 
     # Set the initial length of the snake
     length = 1
@@ -96,16 +100,16 @@ while True:
 
     # Update the position of the snake based on the direction
     if direction == 'RIGHT':
-        x_change = snake_block
+        x_change = 10
         y_change = 0
     elif direction == 'LEFT':
-        x_change = -snake_block
+        x_change = -10
         y_change = 0
     elif direction == 'UP':
-        y_change = -snake_block
+        y_change = -10
         x_change = 0
     elif direction == 'DOWN':
-        y_change = snake_block
+        y_change = 10
         x_change = 0
 
     # Check if the snake has collided with the wall or itself
@@ -115,8 +119,8 @@ while True:
     # Check if the snake has collided with the food
     if check_food_collision(x, y, food_x, food_y):
         # Generate a new food item at a random position
-        food_x = round((random.randint(0, SCREEN_SIZE[0] - 1))/10)*10
-        food_y = round((random.randint(0, SCREEN_SIZE[1] - 1))/10)*10
+        food_x = round((random.randint(0, SCREEN_SIZE[0] - 40))/10)*10
+        food_y = round((random.randint(0, SCREEN_SIZE[1] - 40))/10)*10
 
         # Increase the length of the snake - NOT WORKING FOR SOME REASON
         length = length + 1
@@ -146,7 +150,8 @@ while True:
     our_snake(snake_block, snake_List)
 
     # Draw the food on the screen
-    pygame.draw.rect(screen, (255, 255, 255), (food_x, food_y, 10, 10))
+    pygame.draw.rect(screen, (255, 255, 255), (food_x, food_y, snake_block, snake_block))
+    screen.blit(image_soju, (food_x, food_y))
 
     # Display the score on the screen
     show_score(5, 5, score)
