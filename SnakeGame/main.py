@@ -16,15 +16,15 @@ image_cu = pygame.image.load(r'C:\Users\Kasper\Pictures\CU.png').convert()
 # Set the title of the window
 pygame.display.set_caption('Hunt for the Soju')
 
-# Set the initial position and size of the snake
+# Set the initial position and size of the player
 x = 250
 y = 250
-snake_block = 40
+player_block = 40
 
-food_x = round((random.randint(0, SCREEN_SIZE[0]))/10)*10
-food_y = round((random.randint(0, SCREEN_SIZE[1]))/10)*10
-#print(f"Food position: {food_x} : {food_y}")
-#print(f"Snake position: {x} : {y}")
+soju_x = round((random.randint(0, SCREEN_SIZE[0])) / 10) * 10
+soju_y = round((random.randint(0, SCREEN_SIZE[1])) / 10) * 10
+#print(f"Soju position: {food_x} : {food_y}")
+#print(f"Player position: {x} : {y}")
 
 direction = 'RIGHT'
 
@@ -37,9 +37,9 @@ color = (255, 0, 0)
 font = pygame.font.SysFont('comicsansms', 24)
 
 
-def our_snake(snake_block, snake_list):
-    for x in snake_list:
-        pygame.draw.rect(screen, color, [x[0], x[1], snake_block, snake_block])
+def our_player(player_block, player_list):
+    for x in player_list:
+        pygame.draw.rect(screen, color, [x[0], x[1], player_block, player_block])
 
         screen.blit(image_jan, (x[0], x[1]))
 
@@ -50,8 +50,8 @@ def show_score(x, y, score):
 
 
 # Function to check if the snake has collided with the food
-def check_food_collision(x, y, food_x, food_y):
-    if food_x-10 <= x <= food_x+10 and food_y-10 <= y <= food_y+10:
+def check_soju_collision(x, y, soju_x, soju_y):
+    if soju_x-10 <= x <= soju_x+10 and soju_y-10 <= y <= soju_y+10:
         return True
     return False
 
@@ -69,10 +69,10 @@ while True:
 
     screen.blit(image_cu, (0, 0))
 
-    # Set the initial length of the snake
+    # Set the initial length of the player
     length = 1
 
-    snake_List = []
+    soju_List = []
     x_change = 0
     y_change = 0
 
@@ -98,7 +98,7 @@ while True:
             elif event.key == pygame.K_DOWN and direction != 'UP':
                 direction = 'DOWN'
 
-    # Update the position of the snake based on the direction
+    # Update the position of the player based on the direction
     if direction == 'RIGHT':
         x_change = 10
         y_change = 0
@@ -112,17 +112,17 @@ while True:
         y_change = 10
         x_change = 0
 
-    # Check if the snake has collided with the wall or itself
+    # Check if the player has collided with the wall or itself
     if check_collision(x, y, length):
         break
 
     # Check if the snake has collided with the food
-    if check_food_collision(x, y, food_x, food_y):
+    if check_soju_collision(x, y, soju_x, soju_y):
         # Generate a new food item at a random position
-        food_x = round((random.randint(0, SCREEN_SIZE[0] - 40))/10)*10
-        food_y = round((random.randint(0, SCREEN_SIZE[1] - 40))/10)*10
+        soju_x = round((random.randint(0, SCREEN_SIZE[0] - 40)) / 10) * 10
+        soju_y = round((random.randint(0, SCREEN_SIZE[1] - 40)) / 10) * 10
 
-        # Increase the length of the snake - NOT WORKING FOR SOME REASON
+        # Increase the length of the player - NOT WORKING FOR SOME REASON
         length = length + 1
 
         # Increase the score
@@ -131,27 +131,27 @@ while True:
         # Increase the speed of the game
         speed += 2
 
-        # Change the color of the snake
+        # Change the color of the player
         color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
 
     x += x_change
     y += y_change
 
-    #Drawing the snake parts - NOT CURRENTLY WORKING
-    snake_Head = [x, y]
-    snake_List.append(snake_Head)
-    if len(snake_List) > length:
-        del snake_List[0]
+    #Drawing the player parts - NOT CURRENTLY WORKING
+    soju_head = [x, y]
+    soju_List.append(soju_head)
+    if len(soju_List) > length:
+        del soju_List[0]
 
-    for x in snake_List[:-1]:
-        if x == snake_Head:
+    for x in soju_List[:-1]:
+        if x == soju_head:
             game_close = True
 
-    our_snake(snake_block, snake_List)
+    our_player(player_block, soju_List)
 
-    # Draw the food on the screen
-    pygame.draw.rect(screen, (255, 255, 255), (food_x, food_y, snake_block, snake_block))
-    screen.blit(image_soju, (food_x, food_y))
+    # Draw the soju on the screen
+    pygame.draw.rect(screen, (255, 255, 255), (soju_x, soju_y, player_block, player_block))
+    screen.blit(image_soju, (soju_x, soju_y))
 
     # Display the score on the screen
     show_score(5, 5, score)
