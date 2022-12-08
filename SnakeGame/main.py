@@ -14,7 +14,7 @@ image_cu = pygame.image.load(r'C:\Users\Kasper\Pictures\CU.png').convert()
 
 
 # Set the title of the window
-pygame.display.set_caption('Snake')
+pygame.display.set_caption('Hunt for the Soju')
 
 # Set the initial position and size of the snake
 x = 250
