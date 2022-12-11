@@ -9,4 +9,4 @@ Use the arrow keys to control Jan through his endeveour to collect as many soju 
 
 This project is released under the MIT License for copyright distribution and may be modified and re-released as see fit.
 
-This project was heavily inspired by the classic game of Snake and has been developed in Python with the use of the PyGame open-source library.
+This project was heavily inspired by the classic game of Snake and has been developed in Python with the use of the PyGame open-source library. Using inspiration for sources such as: https://www.edureka.co/blog/snake-game-with-pygame/
