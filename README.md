@@ -1,7 +1,7 @@
-## Hunt for the Soju
+# Hunt for the Soju
 You will play as a person trying to collect *soju* - be careful though, because the more sju you collect, the harder the game will get!
 
-# Gameplay: 
+## Gameplay: 
 
 Use the arrow keys to control Jan through his endeveour to collect as many soju bottles as possible in the CU - be careful though, the more you collect, the harder it gets for Jan to get to the soju bottles.
 
